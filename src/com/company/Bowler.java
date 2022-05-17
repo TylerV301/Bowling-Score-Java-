@@ -35,7 +35,7 @@ public class Bowler {
     public int getTotalScore() {
         int totalScore = 0;
         for (int i = 0; i < 10; i++) {
-
+            int totalStrikeBonus = 0;
             int frame1ToAdd = frame.get(i).getThrow1();
             totalScore += frame1ToAdd;
             int frame2ToAdd = frame.get(i).getThrow2();
@@ -43,6 +43,18 @@ public class Bowler {
             if (frame.get(i).isSpare == true) {
                 int last1stThrow = frame.get(i + 1).getThrow1();
                 totalScore += last1stThrow;
+            }
+            else if (frame.get(i).isStrike == true){
+                int firstStrikeBonus = frame.get(i + 1).getThrow1();
+                int secondStrikeBonus = 0;
+                if (firstStrikeBonus == 10){
+                    secondStrikeBonus = frame.get(i + 2).getThrow1();
+                }
+                else{
+                    secondStrikeBonus = frame.get(i + 1).getThrow2();
+                }
+                totalScore += firstStrikeBonus;
+                totalScore += secondStrikeBonus;
             }
         }
         return totalScore;
